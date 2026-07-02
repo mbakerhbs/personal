@@ -1,1 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Vinalhaven Activities · July 3–5, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #14304d; --navy-2: #1e4266; --sea: #f2f6f7; --card: #ffffff;
+    --ink: #1c2530; --muted: #5b6b7a; --line: #dde6ec;
+    --red4: #b91c1c; --blue-link: #1d63c8;
+  }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--sea); color: var(--ink); -webkit-font-smoothing: antialiased;
+    min-height: 100vh; min-height: 100dvh;
+  }
+  .app { max-width: 1020px; margin: 0 auto; padding: 0 12px 48px; }
 
+  /* ---------- Header ---------- */
+  .masthead {
+    background: linear-gradient(160deg, #14304d 0%, #1e4a6e 70%, #2a5f85 100%);
+    color: #fff; text-align: center; padding: 26px 16px 20px;
+    border-radius: 0 0 18px 18px; margin: 0 -12px 16px;
+    position: relative; overflow: hidden;
+  }
+  .masthead::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 14px;
+    background: repeating-linear-gradient(-45deg, rgba(255,255,255,0.12) 0 8px, transparent 8px 16px);
+  }
+  .masthead h1 {
+    font-family: 'Fraunces', Georgia, serif; font-weight: 800; font-size: 30px;
+    letter-spacing: 0.2px;
+  }
+  .masthead .dates {
+    font-size: 13px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase;
+    color: #bcd6e8; margin-top: 5px;
+  }
+  .masthead .place { font-size: 12px; color: #9fc0d6; margin-top: 3px; }
+
+  /* ---------- View toggle ---------- */
+  .toggle-row { display: flex; justify-content: center; gap: 8px; margin-bottom: 16px; }
+  .toggle-btn {
+    padding: 9px 26px; border-radius: 22px; border: 2px solid var(--navy);
+    font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.15s;
+    font-family: 'Inter', sans-serif;
+  }
+  .toggle-btn.active { background: var(--navy); color: #fff; }
+  .toggle-btn.inactive { background: #fff; color: var(--navy); }
+
+  /* ---------- List view ---------- */
+  .filters { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; margin-bottom: 14px; }
+  .filter-pill {
+    padding: 5px 12px; border-radius: 14px; font-size: 11.5px; font-weight: 700;
+    cursor: pointer; border: 1px solid transparent; transition: all 0.12s;
+    font-family: 'Inter', sans-serif;
+  }
+  .hint { font-size: 11.5px; color: #8a99a8; text-align: center; margin-bottom: 14px; font-style: italic; }
+
+  .section-head {
+    display: flex; align-items: center; gap: 10px; margin: 22px 0 10px;
+  }
+  .section-head:first-of-type { margin-top: 8px; }
+  .section-head .dot { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+  .section-head h2 {
+    font-family: 'Fraunces', Georgia, serif; font-size: 19px; font-weight: 800;
+    letter-spacing: 0.2px;
+  }
+  .section-head .rule { flex: 1; height: 1px; background: var(--line); }
+
+  .card {
+    background: var(--card); border-radius: 10px; padding: 13px 15px; margin-bottom: 9px;
+    border-left: 4px solid #ccc; box-shadow: 0 1px 4px rgba(20,48,77,0.06);
+  }
+  .card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+  .card-title { font-weight: 700; font-size: 15px; flex: 1; }
+  .hours-chip {
+    font-size: 10.5px; font-weight: 800; padding: 3px 9px; border-radius: 10px;
+    white-space: nowrap; letter-spacing: 0.2px;
+  }
+  .card-detail { font-size: 13px; color: #44525f; margin-top: 5px; line-height: 1.55; }
+  .card-detail strong { color: var(--ink); }
+  .card-links { margin-top: 5px; }
+  .card-links a {
+    display: inline-block; font-size: 12px; color: var(--blue-link); text-decoration: none;
+    border-bottom: 1px dashed var(--blue-link); margin-right: 12px; line-height: 1.9;
+  }
+  .flag {
+    display: inline-block; font-size: 10.5px; font-weight: 800; color: #b91c1c;
+    background: #fdecec; border-radius: 8px; padding: 2px 8px; margin-top: 6px;
+    letter-spacing: 0.3px;
+  }
+  .sched-tags { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 5px; }
+  .sched-tag {
+    display: inline-flex; align-items: center; gap: 3px; font-size: 11px;
+    background: #e0f2fe; color: #0369a1; border-radius: 12px; padding: 3px 10px; font-weight: 700;
+  }
+  .sched-tag button {
+    background: none; border: none; cursor: pointer; color: #0369a1;
+    font-weight: 800; font-size: 15px; padding: 0 2px; line-height: 1;
+  }
+  .add-row { display: flex; gap: 5px; flex-wrap: wrap; align-items: center; margin-top: 8px; }
+  .add-row select {
+    padding: 5px 7px; border-radius: 6px; border: 1px solid #c8d4dd;
+    font-size: 12.5px; background: #fbfdfe; font-family: 'Inter', sans-serif;
+  }
+  .add-btn {
+    padding: 5px 14px; border-radius: 6px; border: none; font-size: 12.5px;
+    font-weight: 800; color: #fff; cursor: pointer; font-family: 'Inter', sans-serif;
+  }
+  .add-btn.enabled { background: var(--blue-link); }
+  .add-btn.disabled { background: #c3ced7; cursor: default; }
+
+  /* ---------- Calendar view ---------- */
+  .cal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  @media (max-width: 700px) { .cal-grid { grid-template-columns: 1fr; } }
+  .cal-col {
+    background: var(--card); border-radius: 12px; overflow: hidden;
+    box-shadow: 0 2px 8px rgba(20,48,77,0.08);
+  }
+  .cal-header {
+    padding: 12px 10px; text-align: center; color: #fff;
+  }
+  .cal-header.fri, .cal-header.sun { background: var(--navy); }
+  .cal-header.sat { background: linear-gradient(135deg, #a91515, #d33); }
+  .cal-header .dow {
+    font-family: 'Fraunces', Georgia, serif; font-weight: 800; font-size: 17px;
+  }
+  .cal-header .dnum { font-size: 11.5px; font-weight: 600; opacity: 0.85; letter-spacing: 1.5px; text-transform: uppercase; margin-top: 1px; }
+  .cal-tides {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2px 8px;
+    padding: 8px 12px; background: #eaf3f8; font-size: 10.5px; color: #135a76;
+    font-weight: 600; line-height: 1.7; border-bottom: 1px solid var(--line);
+  }
+  .cal-body { padding: 8px; }
+  .cal-event {
+    display: flex; gap: 9px; padding: 7px 9px; margin-bottom: 5px; border-radius: 8px;
+    border-left: 3px solid #ccc; align-items: flex-start;
+  }
+  .cal-time {
+    font-size: 10.5px; font-weight: 800; flex: none; width: 62px;
+    padding-top: 2px; line-height: 1.35;
+  }
+  .cal-info { flex: 1; min-width: 0; }
+  .cal-name { font-size: 12.5px; font-weight: 700; line-height: 1.3; }
+  .cal-note { font-size: 10.5px; color: #5b6b7a; margin-top: 1px; line-height: 1.4; }
+  .cal-pin {
+    display: inline-block; font-size: 9px; font-weight: 800; color: #0369a1;
+    background: #dcf0fb; border-radius: 6px; padding: 1px 6px; margin-left: 4px;
+    vertical-align: 1px; letter-spacing: 0.4px;
+  }
+  .cal-legend {
+    text-align: center; font-size: 11px; color: #7d8c9a; margin: 0 0 12px; line-height: 1.6;
+  }
+  .cal-legend .cal-pin { vertical-align: 0; }
+
+  /* ---------- Reference ---------- */
+  .ref-box {
+    background: var(--card); border-radius: 12px; padding: 16px 18px; margin-top: 24px;
+    border: 2px dashed #c3d2dd;
+  }
+  .ref-box h3 {
+    font-family: 'Fraunces', Georgia, serif; font-size: 17px; font-weight: 800;
+    color: var(--navy); margin-bottom: 8px;
+  }
+  .ref-box .line { font-size: 13px; line-height: 2.05; color: #33424f; }
+  .ref-box a { color: var(--blue-link); text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="app" id="app"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+
+<script type="text/babel">
+const { useState } = React;
+
+const DAYS = ["Friday", "Saturday", "Sunday"];
+const DAY_SUB = ["July 3", "July 4 · America's 250th 🇺🇸", "July 5"];
+const DAY_KEYS = ["fri", "sat", "sun"];
+const TIMES = [
+  "Early AM","7:00 AM","7:30 AM","8:00 AM","8:30 AM","9:00 AM","9:30 AM","10:00 AM","10:30 AM",
+  "11:00 AM","11:30 AM","12:00 PM","12:30 PM","1:00 PM","1:30 PM","2:00 PM","2:30 PM",
+  "3:00 PM","3:30 PM","4:00 PM","4:30 PM","5:00 PM","5:20 PM","5:30 PM","6:00 PM",
+  "6:30 PM","7:00 PM","7:30 PM","8:00 PM","After Dinner"
+];
+
+const TIDES = {
+  fri: { low:"8:00a", basin:"~11:30a", goose:"7:00–9:00a", high:"~2:00p" },
+  sat: { low:"8:34a", basin:"~12:04p", goose:"7:34–9:34a", high:"~2:34p" },
+  sun: { low:"9:13a", basin:"~12:43p", goose:"8:13–10:13a", high:"~3:13p" },
+};
+
+const CATS = {
+  tides:     { label:"Tides & Swimming", color:"#1a6985", bg:"#e8f4f8" },
+  yoga:      { label:"Yoga",             color:"#7b5ea7", bg:"#f3eef8" },
+  outdoor:   { label:"Walks, Bikes & Quarries", color:"#2d7d46", bg:"#eaf5ec" },
+  boat:      { label:"Boat Trips",       color:"#c46210", bg:"#fdf0e2" },
+  july4:     { label:"4th of July",      color:"#b91c1c", bg:"#fde8e8" },
+  dog:       { label:"Minnie",           color:"#8b6914", bg:"#faf3e0" },
+  breakfast: { label:"Breakfast & Brunch", color:"#b8860b", bg:"#fdf6e3" },
+  lunch:     { label:"Lunch",            color:"#d4820e", bg:"#fef4e0" },
+  dinner:    { label:"Dinner",           color:"#8b1a4a", bg:"#f8e8ef" },
+  shops:     { label:"Shops & Treats",   color:"#0d7377", bg:"#e5f4f4" },
+  games:     { label:"Games & Downtime", color:"#5b5ea6", bg:"#ececf7" },
+  note:      { label:"Provisions & Notes", color:"#556270", bg:"#eef1f3" },
+};
+
+// Time parsing for sort: "8:30 AM" etc. Also raw sortMin can be given directly.
+function tm(t) {
+  if (t === "Early AM") return 270;               // 4:30a
+  if (t === "After Dinner") return 1230;          // 8:30p
+  const pm = t.includes("PM");
+  const [h, m] = t.replace(/ AM| PM/g,"").split(":").map(Number);
+  let hr = h % 12; if (pm) hr += 12;
+  return hr*60 + (m||0);
+}
+
+/*
+ openings: pre-populated calendar entries.
+ { day, time (display), sortMin, note (short calendar note) }
+*/
+const ACTS = [
+
+  /* ============ TIDES & SWIMMING ============ */
+  { id:"tide-info", cat:"tides", title:"Tide Schedule", hours:"Reference",
+    detail:"Low tide: Fri 8:00a · Sat 8:34a · Sun 9:13a. Basin jumping is optimal ~3.5 hours after low. Gooseberry is best within 1 hour of low tide. High tide (for Minnie): Fri ~2:00p · Sat ~2:34p · Sun ~3:13p.",
+    fixed:true, openings:[] },
+  { id:"basin", cat:"tides", title:"Jump in the Basin", hours:"~3.5h after low",
+    detail:"Optimal windows: Fri ~11:30a · Sat ~12:04p · Sun ~12:43p. Paddle or hike in via Basin Preserve trails.",
+    link:"https://www.mainetrailfinder.com/trails/trail/basin-preserve", linkLabel:"Basin Preserve Trail",
+    openings:[
+      {day:"fri", time:"~11:30a", sortMin:690, note:"Optimal basin jumping window"},
+      {day:"sat", time:"~12:04p", sortMin:724, note:"Optimal basin jumping window"},
+      {day:"sun", time:"~12:43p", sortMin:763, note:"Optimal basin jumping window"},
+    ]},
+  { id:"goose", cat:"tides", title:"Gooseberry Island", hours:"±1h of low tide",
+    detail:"Best within an hour of low tide. Windows: Fri 7:00–9:00a · Sat 7:34–9:34a · Sun 8:13–10:13a.",
+    openings:[
+      {day:"fri", time:"7–9a", sortMin:420, note:"Gooseberry window (±1h of low)"},
+      {day:"sat", time:"7:34–9:34a", sortMin:454, note:"Gooseberry window (±1h of low)"},
+      {day:"sun", time:"8:13–10:13a", sortMin:493, note:"Gooseberry window (±1h of low)"},
+    ]},
+  { id:"quarry", cat:"tides", title:"Quarry Swim", hours:"Anytime",
+    detail:"Lawson's Quarry (~1.2 mi from ferry) or Booth's Quarry at Narrows Town Park (~2 mi). Crystal-clear freshwater, flat granite for lounging. Tide-independent — great afternoon option.",
+    link:"https://en.wikipedia.org/wiki/Vinalhaven,_Maine", linkLabel:"Vinalhaven · Wikipedia",
+    openings:[] },
+
+  /* ============ YOGA ============ */
+  { id:"yoga-fri", cat:"yoga", title:"RH Farm Yoga — Friday", hours:"Fri 8:30a",
+    detail:"In the barn at Roberts Harbor Farm. Get there early. Bring a yoga mat and layers (barn is unheated). No bathroom in the barn — outhouse nearby.",
+    link:"https://www.rhfarmvh.com/yoga-in-the-barn", linkLabel:"Yoga in the Barn",
+    fixed:true,
+    openings:[ {day:"fri", time:"8:30a", sortMin:510, note:"Arrive early · bring mat & layers"} ]},
+  { id:"yoga-sun", cat:"yoga", title:"RH Farm Yoga — Sunday", hours:"Sun 9:00a",
+    detail:"In the barn at Roberts Harbor Farm. Get there early. Bring a yoga mat and layers. Note: Turner Farm brunch is also Sunday 9–12, so plan the morning.",
+    link:"https://www.rhfarmvh.com/yoga-in-the-barn", linkLabel:"Yoga in the Barn",
+    fixed:true,
+    openings:[ {day:"sun", time:"9:00a", sortMin:540, note:"Arrive early · bring mat & layers"} ]},
+
+  /* ============ OUTDOOR ============ */
+  { id:"lanes", cat:"outdoor", title:"Lane's Island Walk", hours:"Anytime",
+    detail:"45-acre Nature Conservancy preserve, ~1.5 mi of trails over rolling coastal moors and rocky shoreline, plus a cobble beach. Connected by causeway — a 10-minute walk from downtown. A good one.",
+    link:"https://en.wikipedia.org/wiki/Lane%27s_Island", linkLabel:"Wikipedia",
+    link2:"https://www.mainetrailfinder.com/trails/trail/lane-s-island-preserve", linkLabel2:"Trail Map & Info",
+    openings:[] },
+  { id:"walks", cat:"outdoor", title:"Other Island Walks", hours:"Anytime",
+    detail:"Many to choose from: Armbrust Hill, Huber Preserve (Seal Bay views), Tip Toe Mountain, Perry Creek, Middle Mountain, Geary's Beach. Free maps at the Vinalhaven Land Trust kiosk at Skoog Park; they also have a hiking app.",
+    link:"https://www.vinalhavenlandtrust.org", linkLabel:"Vinalhaven Land Trust",
+    openings:[] },
+  { id:"biking", cat:"outdoor", title:"Biking (Groups of Two)", hours:"Anytime",
+    detail:"Ride in pairs — island roads are narrow and lobster trucks move fast. Classic route: Round the Island Road, with detours to Geary's Beach or Brown's Head Light. Rentals at Tidewater Motel if needed (reserve ahead).",
+    link:"https://www.thetidewatervh.com", linkLabel:"Tidewater (rentals)",
+    openings:[] },
+  { id:"kayak", cat:"outdoor", title:"Canoe / Kayak to Nearby Islands", hours:"Anytime",
+    detail:"Paddle to nearby islands and combine with short hikes. Rentals at Tidewater Motel (reserve ahead) — they'll drop you and the boats at a spot of your choice, e.g. the Basin.",
+    link:"https://www.thetidewatervh.com", linkLabel:"Tidewater (rentals)",
+    openings:[] },
+
+  /* ============ BOAT TRIPS ============ */
+  { id:"b-hurricane", cat:"boat", title:"Motorboat to Hurricane Island", hours:"Day use",
+    detail:"Former granite-quarry town and Outward Bound base, now the Hurricane Island Center for Science & Leadership. Public trails on the north/central island (day use); south end is private. Float and moorings on the east side — approach from the northeast.",
+    link:"https://www.hurricaneisland.net/visit-hurricane", linkLabel:"Visit Hurricane Island",
+    openings:[] },
+  { id:"b-turner", cat:"boat", title:"Boat to Turner Farm Farmstand (NH)", hours:"Fri/Sat 9a–1p",
+    detail:"Friday or Saturday AM. Farm stand open Tue–Sat 9–1 in July: certified-organic vegetables, herbs, flowers, eggs, pasture-raised pork and grass-fed beef.",
+    link:"https://www.turner-farm.com/farm-stand", linkLabel:"Turner Farm Stand",
+    openings:[
+      {day:"fri", time:"9a–1p", sortMin:540, note:"Boat over Fri or Sat AM"},
+      {day:"sat", time:"9a–1p", sortMin:540, note:"Boat over Fri or Sat AM"},
+    ]},
+  { id:"b-burnt", cat:"boat", title:"Motorboat to Burnt Island Hike", hours:"Flexible",
+    detail:"Hike on Burnt Island, just offshore in Seal Bay area. Check conditions.", openings:[] },
+  { id:"b-calder", cat:"boat", title:"Calderwood Anchor", hours:"Flexible",
+    detail:"Anchor off Calderwood Neck. Protected water, quiet lunch stop.", openings:[] },
+  { id:"b-seals", cat:"boat", title:"Looking for Seals", hours:"Flexible",
+    detail:"Cruise the ledges looking for seals hauled out — best around lower tides when the rocks are exposed.", openings:[] },
+  { id:"b-white", cat:"boat", title:"Motorboat to White Islands", hours:"Flexible",
+    detail:"Trail a dinghy to go ashore or swim. Gorgeous granite-and-pine cluster off Vinalhaven's west shore; snug anchorage between Big and Little White. Small sandy beaches appear as the tide falls; sunset views of the Camden Hills.",
+    link:"https://guides.cruisingclub.org/harbor/white-islands/", linkLabel:"Cruising Guide",
+    openings:[] },
+
+  /* ============ 4TH OF JULY ============ */
+  { id:"j4-parade", cat:"july4", title:"4th of July Parade", hours:"Sat · time TBD",
+    detail:"Vinalhaven traditionally holds a parade on the 4th — confirm time and route locally via The Wind or town postings. This is America's 250th, so expect a good turnout.",
+    link:"https://www.townofvinalhaven.org/", linkLabel:"Town of Vinalhaven",
+    openings:[ {day:"sat", time:"AM · TBD", sortMin:600, note:"Confirm time via The Wind / town office"} ]},
+  { id:"j4-fireworks", cat:"july4", title:"Fireworks — TBD", hours:"Sat eve · TBD",
+    detail:"Possibly Saturday evening — Dana did not know for sure. Ask around, check The Wind, or call the town office at (207) 863-4471.",
+    openings:[ {day:"sat", time:"Dusk · TBD", sortMin:1260, note:"Unconfirmed — Dana wasn't sure"} ]},
+  { id:"j4-flea", cat:"july4", title:"Flea & Farmer's Market", hours:"Sat AM",
+    detail:"Saturday mornings at the field by the Union Church — baked goods, chowders, pies, crafts. A holiday-Saturday classic.",
+    openings:[ {day:"sat", time:"Sat AM", sortMin:530, note:"Union Church parking lot"} ]},
+  { id:"j4-other", cat:"july4", title:"Other 4th Activities", hours:"Check The Wind",
+    detail:"Grab The Wind (island weekly) at the ferry terminal or post office for the full holiday schedule — fundraiser lobster dinners, music, and pop-ups tend to appear this weekend.",
+    openings:[] },
+
+  /* ============ MINNIE ============ */
+  { id:"minnie", cat:"dog", title:"Take Minnie Swimming", hours:"High tide",
+    detail:"High tide is best — right side of the dock, or the little stone beach. Approximate high tides: Fri ~2:00p · Sat ~2:34p · Sun ~3:13p.",
+    openings:[
+      {day:"fri", time:"~2:00p", sortMin:840, note:"High tide · dock (right side) or stone beach"},
+      {day:"sat", time:"~2:34p", sortMin:874, note:"High tide · dock (right side) or stone beach"},
+      {day:"sun", time:"~3:13p", sortMin:913, note:"High tide · dock (right side) or stone beach"},
+    ]},
+
+  /* ============ BREAKFAST & BRUNCH ============ */
+  { id:"bk-sherry", cat:"breakfast", title:"Sherry's Kitchen", hours:"Fri 7:30–2 · Sat 8–12 · Sun 9–1",
+    detail:"30 Main St. Espresso bar, frittatas, quiches, baked goods, focaccia sandwiches. Counter service. Expect coffee and prepared food to be slow — but worth it.",
+    flagText:"SPECIAL JULY 4 HOURS: 8a–12p",
+    link:"https://www.sherryskitchenvinalhaven.com/", linkLabel:"sherryskitchenvinalhaven.com",
+    openings:[
+      {day:"fri", time:"7:30a–2p", sortMin:450, note:"Slow but worth it"},
+      {day:"sat", time:"8a–12p", sortMin:480, note:"⚠ Special July 4 hours"},
+      {day:"sun", time:"9a–1p", sortMin:540, note:"Sunday hours"},
+    ]},
+  { id:"bk-surf", cat:"breakfast", title:"Surfside", hours:"4:30a–10:30a",
+    detail:"35 W Main St, on Harbor Wharf. The local lobsterman experience — basic breakfast with a harbor view. Saturday hours unconfirmed; call (207) 863-2767.",
+    flagText:"SATURDAY HOURS UNCONFIRMED",
+    openings:[
+      {day:"fri", time:"4:30–10:30a", sortMin:270, note:"Local experience · harbor view"},
+      {day:"sat", time:"4:30–10:30a?", sortMin:270, note:"⚠ Sat hours unconfirmed — call ahead"},
+      {day:"sun", time:"4:30–10:30a", sortMin:270, note:"Local experience · harbor view"},
+    ]},
+  { id:"bk-rhfarm", cat:"breakfast", title:"RH Farm Brunch — FRIDAY this week", hours:"Fri 9a–1p",
+    detail:"Open Friday instead of Saturday this week because of the 4th. Get there at 9 if possible — definitely worth it. Organic, farm-fresh food and baked goods. Pairs perfectly with Friday 8:30 yoga.",
+    flagText:"MOVED TO FRIDAY FOR JULY 4TH WEEK",
+    link:"https://www.rhfarmvh.com/", linkLabel:"Roberts Harbor Farm",
+    openings:[ {day:"fri", time:"9a–1p", sortMin:541, note:"⚠ Friday this week (not Sat) · arrive at 9"} ]},
+  { id:"bk-turnerbrunch", cat:"breakfast", title:"Turner Farm Brunch (NH) — Sunday", hours:"Sun 9a–12p",
+    detail:"Brunch at Turner Farm on North Haven, Sunday 9–12. Better not to be too late. Boat over and combine with a walk around the farm.",
+    link:"https://www.turner-farm.com/", linkLabel:"Turner Farm",
+    openings:[ {day:"sun", time:"9a–12p", sortMin:542, note:"Don't be late · boat to NH"} ]},
+
+  /* ============ LUNCH ============ */
+  { id:"lu-wave", cat:"lunch", title:"Island Wave (Food Truck)", hours:"Fri/Sun 11:30–2 · Sat 10–2",
+    detail:"On the pond. Empanadas, arepas, hot dogs.",
+    openings:[
+      {day:"fri", time:"11:30a–2p", sortMin:690, note:"Empanadas & arepas · on the pond"},
+      {day:"sat", time:"10a–2p", sortMin:600, note:"Extended July 4 hours"},
+      {day:"sun", time:"11:30a–2p", sortMin:690, note:"Empanadas & arepas · on the pond"},
+    ]},
+  { id:"lu-greets", cat:"lunch", title:"Greet's Eats (Food Truck)", hours:"11a–2p daily",
+    detail:"Get there by 11:30. Lobster rolls voted best in New England by Downeast readers; burgers, chicken. Watch the fishermen come in while you eat.",
+    openings:[
+      {day:"fri", time:"11a–2p", sortMin:660, note:"Arrive by 11:30 · famous lobster roll"},
+      {day:"sat", time:"11a–2p", sortMin:660, note:"Arrive by 11:30 · famous lobster roll"},
+      {day:"sun", time:"11a–2p", sortMin:660, note:"Arrive by 11:30 · famous lobster roll"},
+    ]},
+  { id:"lu-blues", cat:"lunch", title:"Blue's (Food Truck)", hours:"8a–2p daily",
+    detail:"Breakfast or lunch, 8–2 all three days.",
+    openings:[
+      {day:"fri", time:"8a–2p", sortMin:481, note:"Breakfast or lunch"},
+      {day:"sat", time:"8a–2p", sortMin:481, note:"Breakfast or lunch"},
+      {day:"sun", time:"8a–2p", sortMin:481, note:"Breakfast or lunch"},
+    ]},
+  { id:"lu-landing", cat:"lunch", title:"The Landing (North Haven)", hours:"11a–2p daily*",
+    detail:"Directly across from the NH ferry terminal. Burgers, BLTs, lobster rolls, fries, ice cream. *Hours believed 11–2 all three days — confirm at (207) 863-5186.",
+    flagText:"CONFIRM HOURS",
+    link:"https://www.northhavenlanding.com", linkLabel:"northhavenlanding.com",
+    openings:[
+      {day:"fri", time:"11a–2p*", sortMin:661, note:"NH · confirm hours"},
+      {day:"sat", time:"11a–2p*", sortMin:661, note:"NH · confirm hours"},
+      {day:"sun", time:"11a–2p*", sortMin:661, note:"NH · confirm hours"},
+    ]},
+
+  /* ============ DINNER ============ */
+  { id:"din-fri", cat:"dinner", title:"Friday: Nebo Lodge (North Haven)", hours:"Dock 5:20p · Dinner 5:45p",
+    detail:"Reservation at 5:45p — early so you can get back in daylight. Leave the dock at 5:20p. Seasonal farm-to-table menu, great cocktails. Let Malcolm know if you want to cancel the reservation.",
+    fixed:true,
+    link:"https://www.nebolodge.com/", linkLabel:"Nebo Lodge",
+    link2:"https://www.exploretock.com/nebolodge/", linkLabel2:"Reservations (Tock)",
+    openings:[ {day:"fri", time:"5:20p", sortMin:1040, note:"Leave dock 5:20 · dinner 5:45 · back in daylight"} ]},
+  { id:"din-sat", cat:"dinner", title:"Saturday: Joel's Potluck (or Lobsters at Home)", hours:"Sat evening",
+    detail:"Joel is having a potluck — you are all invited. Alternative: cook at home / lobsters. If lobsters, may need to buy Friday at the Co-op and keep them in a trap on the float.",
+    openings:[ {day:"sat", time:"Evening", sortMin:1080, note:"Everyone invited · or lobsters at home"} ]},
+  { id:"din-sun", cat:"dinner", title:"Sunday: Sand Bar, Cook, or The Landing", hours:"Sun evening",
+    detail:"Options: Sand Bar (open to 8p), cook at home, or The Landing at Night on NH — Sunday dinner 5–8p with a fun menu different from lunch, full bar. Confirm Landing dinner at (207) 863-5186.",
+    link:"https://sandbarvinalhaven.com", linkLabel:"Sand Bar",
+    link2:"https://www.northhavenlanding.com", linkLabel2:"The Landing",
+    openings:[ {day:"sun", time:"5–8p", sortMin:1081, note:"Sand Bar · home · or Landing at Night (NH)"} ]},
+
+  /* ============ SHOPS & TREATS ============ */
+  { id:"sh-gofish", cat:"shops", title:"Go Fish", hours:"Fri/Sat 10–5 · Sun 10–2",
+    detail:"56 Main St. Nostalgia and fun: the famous penny-candy counter (120+ choices under glass), classic toys, games, art supplies, unique t-shirts, jewelry, Maine-made crafts. Summer hours Mon–Sat 10–5, Sun 10–2.",
+    link:"https://www.gofishvh.com/", linkLabel:"gofishvh.com",
+    openings:[
+      {day:"fri", time:"10a–5p", sortMin:601, note:"Penny candy · toys · gifts"},
+      {day:"sat", time:"10a–5p", sortMin:601, note:"Penny candy · toys · gifts"},
+      {day:"sun", time:"10a–2p", sortMin:601, note:"Shorter Sunday hours"},
+    ]},
+  { id:"sh-candy", cat:"shops", title:"Vinalhaven Candy Co. — Evening Ice Cream", hours:"Daily 11:30a–8p",
+    detail:"35 W Main St (next to Homeport). Gifford's hand-scooped ice cream, soft serve, sundaes, chocolate-dipped waffle cones, homemade chocolates and candy. Rocking chairs on the porch overlooking the harbor — the evening ice cream stop.",
+    openings:[
+      {day:"fri", time:"til 8p", sortMin:1170, note:"Evening ice cream · porch rockers"},
+      {day:"sat", time:"til 8p", sortMin:1170, note:"Evening ice cream · porch rockers"},
+      {day:"sun", time:"til 8p", sortMin:1170, note:"Evening ice cream · porch rockers"},
+    ]},
+
+  /* ============ GAMES & DOWNTIME ============ */
+  { id:"g-backyard", cat:"games", title:"Backyard Games", hours:"Anytime",
+    detail:"Cornhole, croquet, badminton, and Poleish (Polish horseshoes). Perfect for pre-dinner hours or while lobsters cook.",
+    openings:[] },
+  { id:"g-board", cat:"games", title:"Board Games & Cards", hours:"Anytime",
+    detail:"Wingspan, Everdell, Catan, Azul, Bananagrams, and cards. Foggy-morning and after-dinner material.",
+    openings:[] },
+  { id:"g-puzzles", cat:"games", title:"Puzzles", hours:"Anytime",
+    detail:"A puzzle on the table all weekend — contribute pieces as you pass by.", openings:[] },
+  { id:"g-reading", cat:"games", title:"Beach Reading", hours:"Anytime",
+    detail:"Bring your book to Lane's Island, the stone beach, or the porch. Need one? Second Hand Prose on Main St (benefits the library) is open Mon–Sat 10–2.",
+    openings:[] },
+
+  /* ============ NOTES ============ */
+  { id:"n-sandbar", cat:"note", title:"Sand Bar — Hours Reference", hours:"11a–8p all 3 days",
+    detail:"63 Main St. Pizza, seafood, loaded fries, bar food, boozy slushies, cocktails. Open 11–8 Fri/Sat/Sun. (207) 863-4500.",
+    fixed:true,
+    link:"https://sandbarvinalhaven.com", linkLabel:"sandbarvinalhaven.com",
+    openings:[
+      {day:"fri", time:"11a–8p", sortMin:662, note:"Open all day · lunch through dinner"},
+      {day:"sat", time:"11a–8p", sortMin:662, note:"Open all day · lunch through dinner"},
+      {day:"sun", time:"11a–8p", sortMin:662, note:"Open all day · lunch through dinner"},
+    ]},
+  { id:"n-coop", cat:"note", title:"Fisherman's Co-op — Lobsters", hours:"Call to confirm",
+    detail:"11 W Main St. Live lobsters for sale. If you want lobsters Sunday, you might need to buy Friday and keep them in a trap on the float to stay fresh. Double-check hours at (207) 863-2263 — and check if we have a trap.",
+    fixed:true,
+    flagText:"CALL (207) 863-2263 · CHECK IF WE HAVE A TRAP",
+    openings:[ {day:"fri", time:"Buy AM/PM", sortMin:960, note:"If lobsters Sunday: buy Fri, keep in trap on float"} ]},
+];
+
+function App() {
+  const [view, setView] = useState("list");
+  const [acts, setActs] = useState(ACTS.map(a => ({...a, scheduled: []})));
+  const [filter, setFilter] = useState("all");
+
+  const addSched = (id, day, time) =>
+    setActs(p => p.map(a => a.id === id ? {...a, scheduled: [...a.scheduled, {day, time}]} : a));
+  const rmSched = (id, idx) =>
+    setActs(p => p.map(a => a.id === id ? {...a, scheduled: a.scheduled.filter((_,i)=>i!==idx)} : a));
+
+  const pinCount = acts.reduce((n,a)=>n+a.scheduled.length,0);
+
+  return (
+    <div>
+      <div className="masthead">
+        <h1>⚓ Vinalhaven Activities</h1>
+        <div className="dates">July 3 – 5, 2026</div>
+        <div className="place">Fox Islands · Penobscot Bay · Maine</div>
+      </div>
+
+      <div className="toggle-row">
+        <button className={`toggle-btn ${view==="list"?"active":"inactive"}`} onClick={()=>setView("list")}>📋 List</button>
+        <button className={`toggle-btn ${view==="calendar"?"active":"inactive"}`} onClick={()=>setView("calendar")}>📅 Calendar{pinCount>0?` · ${pinCount} pinned`:""}</button>
+      </div>
+
+      {view==="calendar" && <CalView acts={acts}/>}
+      {view==="list" && <ListView acts={acts} filter={filter} setFilter={setFilter} onAdd={addSched} onRm={rmSched}/>}
+    </div>
+  );
+}
+
+function ListView({acts, filter, setFilter, onAdd, onRm}) {
+  const catKeys = Object.keys(CATS);
+  const shown = filter==="all" ? catKeys : [filter];
+  return (
+    <div>
+      <div className="filters">
+        <button className="filter-pill"
+          style={{background:filter==="all"?"#14304d":"#fff",color:filter==="all"?"#fff":"#33424f",borderColor:"#c8d4dd"}}
+          onClick={()=>setFilter("all")}>All</button>
+        {catKeys.map(k=>{
+          const c=CATS[k];
+          return <button key={k} className="filter-pill" onClick={()=>setFilter(k)}
+            style={{background:filter===k?c.color:c.bg,color:filter===k?"#fff":c.color,borderColor:c.color+"30"}}>{c.label}</button>;
+        })}
+      </div>
+      <div className="hint">Pin any activity to a day & time with the dropdowns — pins appear in the Calendar alongside the fixed schedule</div>
+
+      {shown.map(k=>{
+        const c=CATS[k];
+        const items = acts.filter(a=>a.cat===k);
+        if (!items.length) return null;
+        return (
+          <div key={k}>
+            <div className="section-head">
+              <span className="dot" style={{background:c.color}}></span>
+              <h2 style={{color:c.color}}>{c.label}</h2>
+              <span className="rule"></span>
+            </div>
+            {items.map(a=><Card key={a.id} a={a} onAdd={onAdd} onRm={onRm}/>)}
+          </div>
+        );
+      })}
+      <RefBox/>
+    </div>
+  );
+}
+
+function Card({a, onAdd, onRm}) {
+  const [day,setDay]=useState(""); const [time,setTime]=useState("");
+  const c = CATS[a.cat];
+  const doAdd = ()=>{ if(day&&time){onAdd(a.id,day,time);setDay("");setTime("");} };
+  return (
+    <div className="card" style={{borderLeftColor:c.color}}>
+      <div className="card-head">
+        <div className="card-title">{a.title}</div>
+        {a.hours && <span className="hours-chip" style={{background:c.bg,color:c.color}}>{a.hours}</span>}
+      </div>
+      <div className="card-detail">{a.detail}</div>
+      {a.flagText && <div><span className="flag">⚠ {a.flagText}</span></div>}
+      {(a.link||a.link2) && <div className="card-links">
+        {a.link && <a href={a.link} target="_blank" rel="noopener noreferrer">{a.linkLabel||"Info"} ↗</a>}
+        {a.link2 && <a href={a.link2} target="_blank" rel="noopener noreferrer">{a.linkLabel2||"Info"} ↗</a>}
+      </div>}
+      {a.scheduled.length>0 && <div className="sched-tags">
+        {a.scheduled.map((s,i)=>(
+          <span key={i} className="sched-tag">
+            📌 {DAYS[DAY_KEYS.indexOf(s.day)]} @ {s.time}
+            <button onClick={()=>onRm(a.id,i)} aria-label="Remove">×</button>
+          </span>
+        ))}
+      </div>}
+      <div className="add-row">
+        <select value={day} onChange={e=>setDay(e.target.value)}>
+          <option value="">Pin to day…</option>
+          {DAY_KEYS.map((k,i)=><option key={k} value={k}>{DAYS[i]} ({DAY_SUB[i].split(" ·")[0]})</option>)}
+        </select>
+        <select value={time} onChange={e=>setTime(e.target.value)}>
+          <option value="">Time…</option>
+          {TIMES.map(t=><option key={t} value={t}>{t}</option>)}
+        </select>
+        <button className={`add-btn ${day&&time?"enabled":"disabled"}`} onClick={doAdd} disabled={!day||!time}>📌 Pin</button>
+      </div>
+    </div>
+  );
+}
+
+function CalView({acts}) {
+  // Combine fixed openings + user pins per day
+  const byDay = {fri:[], sat:[], sun:[]};
+  acts.forEach(a=>{
+    (a.openings||[]).forEach(o=>{
+      byDay[o.day].push({ act:a, time:o.time, note:o.note, sm:o.sortMin, pinned:false });
+    });
+    a.scheduled.forEach(s=>{
+      byDay[s.day].push({ act:a, time:s.time, note:a.hours||"", sm:tm(s.time), pinned:true });
+    });
+  });
+  DAY_KEYS.forEach(k=>byDay[k].sort((x,y)=>x.sm-y.sm));
+
+  return (
+    <div>
+      <div className="cal-legend">
+        Pre-filled with everything that has fixed hours or tide windows · <span className="cal-pin">PINNED</span> = items you added from the List
+      </div>
+      <div className="cal-grid">
+        {DAY_KEYS.map((dk,di)=>{
+          const t=TIDES[dk];
+          return (
+            <div key={dk} className="cal-col">
+              <div className={`cal-header ${dk}`}>
+                <div className="dow">{DAYS[di]}</div>
+                <div className="dnum">{DAY_SUB[di]}</div>
+              </div>
+              <div className="cal-tides">
+                <span>🌊 Low {t.low}</span><span>🌊 High {t.high}</span>
+                <span>🪨 Basin {t.basin}</span><span>🏝 Goose {t.goose}</span>
+              </div>
+              <div className="cal-body">
+                {byDay[dk].map((e,i)=>{
+                  const c=CATS[e.act.cat];
+                  return (
+                    <div key={i} className="cal-event" style={{borderLeftColor:c.color,background:c.bg}}>
+                      <div className="cal-time" style={{color:c.color}}>{e.time}</div>
+                      <div className="cal-info">
+                        <div className="cal-name">
+                          {e.act.title}
+                          {e.pinned && <span className="cal-pin">PINNED</span>}
+                        </div>
+                        {e.note && <div className="cal-note">{e.note}</div>}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function RefBox() {
+  return (
+    <div className="ref-box">
+      <h3>📞 Contacts & Links</h3>
+      <div className="line"><strong>Fisherman's Co-op:</strong> <a href="tel:2078632263">(207) 863-2263</a> — confirm hours · ask about lobster trap</div>
+      <div className="line"><strong>Sand Bar:</strong> <a href="tel:2078634500">(207) 863-4500</a> · <a href="https://sandbarvinalhaven.com" target="_blank" rel="noopener noreferrer">sandbarvinalhaven.com ↗</a></div>
+      <div className="line"><strong>Sherry's Kitchen:</strong> <a href="tel:2074756812">(207) 475-6812</a> · <a href="https://www.sherryskitchenvinalhaven.com/" target="_blank" rel="noopener noreferrer">sherryskitchenvinalhaven.com ↗</a></div>
+      <div className="line"><strong>Surfside:</strong> <a href="tel:2078632767">(207) 863-2767</a> — confirm Saturday hours</div>
+      <div className="line"><strong>Vinalhaven Candy Co.:</strong> <a href="tel:2078632041">(207) 863-2041</a></div>
+      <div className="line"><strong>Go Fish:</strong> <a href="tel:2078634193">(207) 863-4193</a> · <a href="https://www.gofishvh.com/" target="_blank" rel="noopener noreferrer">gofishvh.com ↗</a></div>
+      <div className="line"><strong>Nebo Lodge (NH):</strong> <a href="tel:2078672007">(207) 867-2007</a> · <a href="https://www.nebolodge.com/" target="_blank" rel="noopener noreferrer">nebolodge.com ↗</a></div>
+      <div className="line"><strong>The Landing (NH):</strong> <a href="tel:2078635186">(207) 863-5186</a> · <a href="https://www.northhavenlanding.com" target="_blank" rel="noopener noreferrer">northhavenlanding.com ↗</a></div>
+      <div className="line"><strong>Turner Farm (NH):</strong> <a href="tel:2078674962">(207) 867-4962</a> · <a href="https://www.turner-farm.com/" target="_blank" rel="noopener noreferrer">turner-farm.com ↗</a></div>
+      <div className="line"><strong>RH Farm:</strong> <a href="https://www.rhfarmvh.com/" target="_blank" rel="noopener noreferrer">rhfarmvh.com ↗</a></div>
+      <div className="line"><strong>Tidewater Motel (bikes/kayaks):</strong> <a href="tel:2078634618">(207) 863-4618</a> · <a href="https://www.thetidewatervh.com" target="_blank" rel="noopener noreferrer">thetidewatervh.com ↗</a></div>
+      <div className="line"><strong>Town of Vinalhaven:</strong> <a href="tel:2078634471">(207) 863-4471</a> · <a href="https://www.townofvinalhaven.org/" target="_blank" rel="noopener noreferrer">townofvinalhaven.org ↗</a></div>
+      <div className="line"><strong>VH Land Trust (trail maps & app):</strong> <a href="https://www.vinalhavenlandtrust.org" target="_blank" rel="noopener noreferrer">vinalhavenlandtrust.org ↗</a></div>
+      <div className="line"><strong>Hurricane Island:</strong> <a href="https://www.hurricaneisland.net/visit-hurricane" target="_blank" rel="noopener noreferrer">hurricaneisland.net ↗</a></div>
+    </div>
+  );
+}
+
+ReactDOM.render(<App/>, document.getElementById("app"));
+</script>
+</body>
+</html>
